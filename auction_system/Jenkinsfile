@@ -4,31 +4,31 @@ pipeline {
     stages {
         stage('Pull Code') {
             steps {
-                git 'https://github.com/Swetha210506/FAT_LAB_Agile.git'
+                git branch: 'main', url: 'https://github.com/Swetha210506/FAT_LAB_Agile.git'
             }
         }
 
         stage('Compile') {
             steps {
-                sh 'javac src/main/java/AuctionService.java'
+                bat 'javac auction_system/src/main/java/AuctionService.java'
             }
         }
 
         stage('Run') {
             steps {
-                sh 'java -cp src/main/java AuctionService'
+                bat 'java -cp auction_system/src/main/java AuctionService'
             }
         }
 
         stage('Docker Build') {
             steps {
-                sh 'docker build -t auction-app .'
+                bat 'docker build -t auction-app auction_system'
             }
         }
 
         stage('Docker Run') {
             steps {
-                sh 'docker run auction-app'
+                bat 'docker run auction-app'
             }
         }
     }
