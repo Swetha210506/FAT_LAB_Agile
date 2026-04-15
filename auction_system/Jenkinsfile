@@ -8,15 +8,9 @@ pipeline {
             }
         }
 
-        stage('Compile') {
+        stage('Maven Build') {
             steps {
-                sh 'javac src/AuctionService.java'
-            }
-        }
-
-        stage('Run') {
-            steps {
-                sh 'java -cp src AuctionService'
+                sh 'mvn clean install'
             }
         }
 
@@ -26,7 +20,7 @@ pipeline {
             }
         }
 
-        stage('Docker Run') {
+        stage('Run Container') {
             steps {
                 sh 'docker run auction-app'
             }
