@@ -1,0 +1,35 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Pull Code') {
+            steps {
+                git 'https://github.com/Swetha210506/FAT_LAB_Agile.git'
+            }
+        }
+
+        stage('Compile') {
+            steps {
+                sh 'javac src/AuctionService.java'
+            }
+        }
+
+        stage('Run') {
+            steps {
+                sh 'java -cp src AuctionService'
+            }
+        }
+
+        stage('Docker Build') {
+            steps {
+                sh 'docker build -t auction-app .'
+            }
+        }
+
+        stage('Docker Run') {
+            steps {
+                sh 'docker run auction-app'
+            }
+        }
+    }
+}
